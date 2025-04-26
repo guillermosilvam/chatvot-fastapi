@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from core.models import model
+from langchain_core.messages import HumanMessage
+from graph.bot_26abril.main_graph import graph
+from schemas.schemas import Bot
 
 app = FastAPI()
 
@@ -9,7 +11,9 @@ def hello_world():
 
 
 @app.post("/chat")
-def chat(message: str):
-    return {"message": model.invoke(message)}
-
-
+def chat(prompt: Bot):
+    config = {"configurable": {"thread_id": prompt.id}}
+    input_messages = [HumanMessage(content=prompt.prompt)]
+    init_state = {"messages" : input_messages}
+    response = graph.invoke(init_state, config)    
+    return {"message": response['messages'][-1].content}
