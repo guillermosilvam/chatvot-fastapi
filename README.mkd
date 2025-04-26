@@ -1,0 +1,8 @@
+INSTALAR DEPENDENCIAS
+
+# pip install "fastapi[standard]"
+# pip install langchain
+# pip install langchain-core
+# pip install -qU langchain langchain_cohere
+# pip install langchain-community
+# pip install langgraph
